@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Commands;
 
 use App\Actions\User\RequestDeactivationAction;
 use App\Models\Challenge;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Commands;
 
 use App\Enums\ChallengeStatus;
 use App\Models\Challenge;
