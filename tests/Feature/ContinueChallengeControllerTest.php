@@ -60,7 +60,7 @@ class ContinueChallengeControllerTest extends TestCase
             ->assertStatus(200);
 
         $challenge = Challenge::first();
-        $this->assertTrue($challenge->continued_at->diffInDays() === 0);
+        $this->assertTrue($challenge->continued_at->diffInDays() < 1);
         $this->assertTrue($challenge->updated_at->diffInDays() > 0);
     }
 
