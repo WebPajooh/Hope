@@ -20,10 +20,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     protected $with = ['country'];
 
     public function isFollowedBy($userId): bool
@@ -52,5 +48,12 @@ class User extends Authenticatable
     public function achievements()
     {
         return $this->hasMany(UserAchievement::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+        ];
     }
 }

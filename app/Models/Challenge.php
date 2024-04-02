@@ -14,11 +14,6 @@ class Challenge extends Model
 
     protected $with = ['user'];
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'continued_at' => 'datetime',
-    ];
-
     public function scopeByUserId(Builder $query, $userId = null): void
     {
         if ($userId !== null) {
@@ -55,5 +50,13 @@ class Challenge extends Model
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime',
+            'continued_at' => 'datetime',
+        ];
     }
 }
