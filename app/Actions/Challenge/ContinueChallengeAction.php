@@ -15,7 +15,7 @@ class ContinueChallengeAction
             throw new HttpException(400, 'This challenge is not ongoing!');
         }
 
-        if ($challenge->continued_at->diffInDays() === 0) {
+        if ($challenge->continued_at->diffInDays() < 1) {
             throw new HttpException(400, 'Not a day has passed yet!');
         }
 
