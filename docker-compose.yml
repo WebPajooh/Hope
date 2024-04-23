@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    ports:
+      - '${APP_PORT:-80}:80'
+    depends_on:
+      - database
+      - php
+  database:
+    image: mariadb:10.5
+    ports:
+      - '${DB_PORT:-3306}:3306'
+    volumes:
+      - 'hope-database:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  php:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    volumes:
+      - .:/var/www/html
+  composer:
+    image: composer:2
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+  artisan:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: [ "php", "/var/www/html/artisan" ]
+    depends_on:
+      - database
+volumes:
+  hope-database:
+    driver: local
